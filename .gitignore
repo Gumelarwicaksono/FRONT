@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+#component
+/src/components/Addalamat.jsx
 # testing
 /coverage
 
