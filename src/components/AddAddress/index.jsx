@@ -12,7 +12,7 @@ const schema = yup
     nama: yup.string().required('Nama alamat harus diisi'),
     detail: yup.string().required('Detail alamat harus diisi'),
     provinsi: yup.object().required('Provinsi belum dipilih').nullable(),
-    kabupaten: yup.object().required('Kabupaten belum dipilih').nullable(),
+    kota: yup.object().required('Kota belum dipilih').nullable(),
     kecamatan: yup.object().required('Kecamatan belum dipilih').nullable(),
     kelurahan: yup.object().required('kelurahan belum dipilih').nullable(),
   })
@@ -60,7 +60,7 @@ export default function AddAddress() {
   useEffect(() => {
     setValue('kecamatan', null);
     setValue('kelurahan', null);
-  }, [allField.kabupaten, setValue]);
+  }, [allField.kota, setValue]);
   useEffect(() => {
     setValue('kelurahan', null);
   }, [allField.kecamatan, setValue]);
@@ -88,17 +88,24 @@ export default function AddAddress() {
           </Form.Group>
           <Form.Group className="mb-3" controlId="kota">
             <Form.Label>Kabupaten</Form.Label>
-            <CustomFormSelect onChange={(value) => updateValue('kota', JSON.parse(value))} isInvalid={errors.kabupaten} code={getValues().provinsi?.value} location="kabupaten" value={getValues()?.kabupaten?.value} />
-            <Form.Control.Feedback type="invalid">{errors.kabupaten?.message}</Form.Control.Feedback>
+            <CustomFormSelect onChange={(value) => updateValue('kota', JSON.parse(value))} isInvalid={errors.kota} param="provinsi_id" id={getValues().provinsi?.value} location="kota" value={getValues()?.kota?.value} />
+            <Form.Control.Feedback type="invalid">{errors.kota?.message}</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="kecamatan">
             <Form.Label>Kecamatan</Form.Label>
-            <CustomFormSelect onChange={(value) => updateValue('kecamatan', JSON.parse(value))} isInvalid={errors.kecamatan} code={getValues().kabupaten?.value} location="kecamatan" value={getValues()?.kecamatan?.value} />
+            <CustomFormSelect onChange={(value) => updateValue('kecamatan', JSON.parse(value))} isInvalid={errors.kecamatan} param="kota_id" id={getValues().kota?.value} location="kecamatan" value={getValues()?.kecamatan?.value} />
             <Form.Control.Feedback type="invalid">{errors.kecamatan?.message}</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="kelurahan">
             <Form.Label>Kelurahan</Form.Label>
-            <CustomFormSelect onChange={(value) => updateValue('kelurahan', JSON.parse(value))} isInvalid={errors.kelurahan} code={getValues().kecamatan?.value} location="kelurahan" value={getValues()?.kelurahan?.value} />
+            <CustomFormSelect
+              onChange={(value) => updateValue('kelurahan', JSON.parse(value))}
+              isInvalid={errors.kelurahan}
+              param="kecamatan_id"
+              id={getValues().kecamatan?.value}
+              location="kelurahan"
+              value={getValues()?.kelurahan?.value}
+            />
             <Form.Control.Feedback type="invalid">{errors.kelurahan?.message}</Form.Control.Feedback>
           </Form.Group>
         </Col>

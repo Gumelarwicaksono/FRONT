@@ -11,8 +11,8 @@ export const getAddress = async () => {
   });
 };
 
-export const getLocation = async (lokasi, id) => {
-  return await axios.get(`https://api.goapi.id/v1/regional/${lokasi}?provinsi_id=${id}&api_key=iqSpGeS7eutcnIGNtyu2e6nE4PfCUI`);
+export const getLocation = async (lokasi, param, id) => {
+  return await axios.get(`https://api.goapi.id/v1/regional/${lokasi}?${param}=${id}&api_key=iqSpGeS7eutcnIGNtyu2e6nE4PfCUI`);
 };
 
 export const createAddress = async (data) => {
